@@ -21,7 +21,7 @@ SECRET_KEY = 'django-insecure-1f-s1u*h#&b&-4mid6#$6+lfo-*m%fuc#gk!d#p)+=nm*-=fn3
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool('DEBUG', True)
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['*'])
 
 AUTH_USER_MODEL = "users.User"
 
@@ -67,6 +67,7 @@ INSTALLED_APPS = DJANGO_APPS + PROJECT_APPS + THIRD_PARTY_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     "corsheaders.middleware.CorsMiddleware",
     'django.middleware.common.CommonMiddleware',
@@ -150,12 +151,20 @@ DATABASES = {
 #         'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
 #     }
 # }
-CACHES = {
-    "default": {
-        "BACKEND": "django.core.cache.backends.redis.RedisCache",
-        "LOCATION": "redis://127.0.0.1:6379",
+REDIS_URL = env("REDIS_URL", default=None)
+if REDIS_URL:
+    CACHES = {
+        "default": {
+            "BACKEND": "django.core.cache.backends.redis.RedisCache",
+            "LOCATION": REDIS_URL,
+        }
     }
-}
+else:
+    CACHES = {
+        "default": {
+            "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+        }
+    }
 REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
     "DEFAULT_AUTHENTICATION_CLASSES": [
@@ -180,7 +189,7 @@ CORS_ALLOWED_ORIGIN_REGEXES = [
     r"^http:\/\/*:*([0-9]+)?$",
 ]
 
-CSRF_TRUSTED_ORIGINS = ['https://getai.life']
+CSRF_TRUSTED_ORIGINS = ['https://getai.life'] + env.list("CSRF_TRUSTED_ORIGINS_EXTRA", default=[])
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.hostinger.com"
@@ -228,6 +237,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'staticfiles'),
 )
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
