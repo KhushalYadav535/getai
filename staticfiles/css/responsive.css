@@ -1,0 +1,382 @@
+@media (min-width: 992px) {
+    nav.mobNav {
+        display: none !important;
+    }
+}
+
+@media (max-width: 991px) {
+    button.navbar-toggler {
+        display: none;
+    }
+
+    .sysNav {
+        display: none;
+    }
+
+    .bnnerHed {
+        /* margin-top: 3.5em; */
+    }
+
+    .sidLogin_sec {
+        gap: 1.5em;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    a.sid_logIn,
+    a.sidSubs_btn {
+        padding-left: 0;
+    }
+
+    a.sid_signUp {
+        color: #393C4A !important;
+    }
+
+}
+
+@media (min-width: 1400px) and (max-width: 1920px) {
+    .bnnerHed {
+        background-position: center;
+    }
+}
+
+@media (min-width: 1200px) and (max-width: 1399px) {
+    .ftLink_bx {
+        flex: 0 0 160px;
+    }
+
+    .lgSocial_bx {
+        flex: 0 0 373px;
+    }
+
+    ._ftNwsLetter {
+        flex: 0 0 315px;
+    }
+
+    .filtrBtns_listBx a {
+        padding: 5px 18px;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+    .ftLink_bx {
+        flex: 0 0 130px;
+    }
+
+    .lgSocial_bx {
+        flex: 0 0 280px;
+    }
+
+    ._ftNwsLetter {
+        flex: 0 0 288px;
+    }
+
+    .filtrBtns_listBx a {
+        padding: 5px 18px;
+        flex: 0 0 11%;
+    }
+
+
+    .subFlex_hd {
+        justify-content: space-between;
+    }
+
+    .submitTxt {
+        flex: 0 0 38%;
+        padding-top: 3em;
+    }
+
+    .submitForm {
+        flex: 0 0 55%;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    .infoTool_bx {
+        justify-content: space-between;
+    }
+
+    ._toolFlex_bx {
+        flex: 0 0 32%;
+    }
+
+    .filtrBtns_listBx {
+        justify-content: flex-start;
+        gap: 10px;
+    }
+
+    .vrsBox_grid {
+        justify-content: center;
+    }
+
+    ._gradientTop {
+        height: 165px;
+    }
+
+    ._prdExp {
+        flex: 0 0 calc(100% - 165px);
+    }
+
+    .otrOpt_bx {
+        flex: 0 0 calc(50% - 12px);
+    }
+
+    ._copyR_foot p {
+        text-align: center;
+    }
+
+    .lgSocial_bx {
+        flex: 0 0 265px;
+    }
+
+
+    .submitForm {
+        flex: 0 0 55%;
+    }
+
+    .submitTxt {
+        flex: 0 0 40%;
+        padding-top: 3em;
+    }
+
+    .subFlex_hd {
+        justify-content: space-between;
+    }
+
+    .subInr_frm {
+        padding: 34px 40px 45px;
+    }
+
+    
+}
+
+
+@media (min-width: 480px) and (max-width: 767px) {
+    .infoTool_bx {
+        display: grid;
+        padding: 1em 1.5em;
+        gap: 15px;
+    }
+
+    ._tfx_text {
+        max-width: 100%;
+        margin-left: 1em;
+    }
+
+    .filtrBtns_listBx {
+        justify-content: flex-start;
+        gap: 12px;
+    }
+
+    ._gradientTop {
+        height: 132px;
+    }
+
+    ._prdExp {
+        flex: 0 0 calc(100% - 132px);
+        padding: 15px 15px;
+    }
+
+
+    .otrOpt_bx {
+        flex: 0 0 calc(50% - 12px);
+    }
+
+    .visitSite_bx span {
+        width: 35px;
+        height: 30px;
+    }
+
+    .visitSite_bx a {
+        padding: 5px 12px;
+        font-size: 13px;
+    }
+    .visitSite_bx {
+        gap: 5px;
+    }
+
+    ._copyR_foot p {
+        text-align: center;
+    }
+
+    .submitSec {
+        height: auto;
+        padding: 50px 0;
+    }
+
+    .subFlex_hd {
+        flex-direction: column;
+        gap: 3em;
+    }
+
+    .submitTxt {
+        flex: 0 0 100%;
+        padding-top: 0em;
+    }
+
+    section.upPer_submitSec {
+        padding-bottom: 0;
+    }
+
+    .subInr_frm {
+        padding: 30px 30px 40px;
+    }
+
+    ul.subUl_bx {
+        max-width: 360px;
+        /* margin: 0 auto; */
+    }
+
+}
+
+@media (max-width: 479px) {
+
+    .catInput a.clear-btn {
+        right: 12px !important;
+        font-size: 12px;
+    }
+    ._innrSrch_fill ._inSrch_selt {
+        max-width: 130px !important;
+    }
+    #a li span, .btn-select li span{
+        font-size: 12px;
+    }
+    button.btn-select:after {
+        right: 6px !important;
+        top: 5px !important;
+        font-size: 12px;
+    }
+    .catInput {
+        width: calc(100% - 130px);
+    }
+    .otrOpt_bx {
+        flex: 0 0 calc(100% - 0px);
+    }
+
+    ._prdX_first h1 {
+        font-size: 24px;
+    }
+
+    .visitSite_bx span {
+        width: 36px;
+        height: 32px;
+    }
+
+    .visitSite_bx span i {
+        font-size: 18px;
+    }
+
+    .visitSite_bx a {
+        font-size: 13px;
+        padding: 5px 14px;
+    }
+
+    ._prdExp {
+        padding: 15px 15px;
+    }
+    .infoTool_bx {
+        display: grid;
+        gap: 1em;
+    }
+
+    .vrsBox_grid {
+        margin-top: -2.5em;
+        justify-content: center;
+    }
+
+    .disCover_otrBx h1 {
+        font-size: 22px;
+    }
+
+    h1.wordCarousel {
+        display: block;
+    }
+
+    .disCover_otrBx {
+        max-width: 320px;
+        margin: 0 auto;
+    }
+
+    .filtrBtns_listBx {
+        justify-content: flex-start;
+        gap: 10px;
+    }
+
+    .lgSocial_bx,
+    ._ftNwsLetter {
+        flex: 0 0 100%;
+    }
+
+    ._copyR_foot p {
+        text-align: center;
+    }
+
+    ._innrFoot_widBx {
+        gap: 30px;
+    }
+
+    .ftLink_bx {
+        flex: 0 0 44%;
+    }
+
+    ._innrSrch_fill {
+        flex: 0 0 calc(100% - 45px);
+    }
+
+    #sidebar {
+        max-width: 260px;
+    }
+
+
+    .submitSec {
+        height: auto;
+        padding: 50px 0;
+    }
+
+    .subFlex_hd {
+        flex-direction: column;
+        gap: 3em;
+    }
+
+    .submitTxt {
+        flex: 0 0 100%;
+        padding-top: 0em;
+    }
+
+    section.upPer_submitSec {
+        padding-bottom: 0;
+    }
+
+    .subInr_frm {
+        padding: 30px 30px 40px;
+    }
+
+    ul.subUl_bx {
+        max-width: 360px;
+        margin: 0 auto;
+    }
+}
+
+._prdX_first h1 {
+    -webkit-line-clamp: 2;
+    max-width: 280px;
+}
+
+@media (min-width: 480px) and (max-width: 767px) {
+    ._prdX_first h1 {
+        font-size: 24px;
+        max-width: 174px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    ._prdX_first h1 {
+        max-width: 266px;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+    ._prdX_first h1 {
+        max-width: 230px;
+    }
+}

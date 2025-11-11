@@ -1,0 +1,317 @@
+{% extends 'base.html' %} 
+{% load static %}
+{% load socialaccount %}
+{% block content %}
+
+<!-- Banner -->
+<section class="bnnerHed">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="disCover_otrBx">
+                    <h1>{{ banner.title }}</h1>
+                    <p>{{ banner.description }}</p>
+                    {% if not request.user.is_authenticated %}
+                        <div class="diC_subscrib_bx" data-bs-toggle="modal" data-bs-target="#staticBackdrop_2">
+                            <input type="email" placeholder="{{ banner.email }}">
+                            <button class="dis_subscribBtn">Subscribe</button>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Banner -->
+
+
+<section class="toolSec">
+    <div class="container">
+        <div class="flt_containerBx">
+            <div class="vrsBox_grid">
+
+                <div class="infoTool_bx">
+                    <div class="_toolFlex_bx">
+                        <img src="{% static 'image/toolIcon.png' %}" alt="">
+                        <div class="_tfx_text">
+                            <a href="{% url 'data_list' %}">
+                                <h4>Tools <span>{{ data_count }}</span></h4>
+                            </a>
+                            <p>the world to build digital twins of human beings</p>
+                        </div>
+                    </div>
+
+                    <div class="_toolFlex_bx">
+                        <img src="{% static 'image/newspaperIcon.png' %}" alt="">
+                        <div class="_tfx_text">
+                            <a href="{% url 'news' %}">
+                                <h4>News <span>{{ news_count }}</span></h4>
+                            </a>
+                            <p>the world to build digital twins of human beings</p>
+                        </div>
+                    </div>
+
+                    <div class="_toolFlex_bx">
+                        <img src="{% static 'image/researchIcon.png' %}" alt="">
+                        <div class="_tfx_text">
+                            <a href="{% url 'research' %}">
+                                <h4>Research <span> {{ research_count }} </span></h4>
+                            </a>
+                            <p>the world to build digital twins of human beings</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Category list Filter section -->
+                <div class="filterOtr_bx">
+                    <form method="GET" action="{% url 'data_list' %}" id="data-filter-form">
+                        <div class="srchFilter_bx">
+                            <div class="_innrSrch_fill">
+                                <div class="_inSrch_selt">
+                                    <select id="category-select" class="vodiapicker" name="category">
+                                        <option value="all" {% if not request.GET.category %}selected{% endif %}>All category</option>
+                                        {% for category in categories %}
+                                            <option value="{{ category.name }}" class="test" data-thumbnail="{{ category.image.url }}"
+                                            {% if request.GET.category == category.name %}selected{% endif %}>
+                                            {{ category.name }}
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+                                      
+                                    <div class="lang-select">
+                                        <button id="category-button" class="btn-select" type="button" value=""></button>
+                                        <div class="b" onclick="selectcat()">
+                                            <ul id="a"></ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="catInput">
+                                    <input type="text" id="search-input" placeholder="Search from {{ data_count }} AI Tools" name="search" value="{% if search_query %}{{ search_query }}{% endif %}">
+                                    {% if search_query %}
+                                        <a href="{% url 'data_list' %}" class="clear-btn">Clear</a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="_innrSrch_fill_btnBx">
+                                <button type="submit" id="search-button"><i class="fas fa-search"></i></button>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="filtrBtns_listBx">
+                        {% for tag in tags %}
+                            <a href="{% url 'data_list' %}?tag={{ tag.id }}"
+                               {% if request.GET.tag == tag.id|stringformat:'s' %}class="active"{% endif %}>
+                                {{ tag.name }}
+                            </a>
+                        {% endfor %}
+                    </div>
+                </div>
+                
+                <!-- Category list Filter section -->
+
+
+                <!-- Data list section -->
+                <div class="infinite-container">
+                    {% for item in data %}
+                        <div class="otrOpt_bx infinite-item">
+                            <div class="_gradientTop">
+                                <img src="{{ item.image.url }}" alt="" >
+                            </div>
+                            <div class="_prdExp">
+                                <div class="_prdX_first">
+                                    <h1>{{ item.title }}</h1>
+                                    <p>{{ item.description }}</p>
+                                </div>
+                                <div class="_prdX_second">
+                                    <div class="_innrPrd_feat">
+                                        {% for tag in item.tags.all %}
+                                            <span>{{ tag.name }}</span>
+                                        {% endfor %}
+                                        <span>{{ item.category.name }}</span>
+                                    </div>
+                                    <div class="siteCt_bx">
+                                        <div class="eyeCt_bx">
+                                            <i class="fa-solid fa-eye"></i>
+                                            <span>{{ item.click_count }}</span>
+                                        </div>
+                                        <div class="visitSite_bx">
+                                            <span>
+                                                <input id="_heart{{ item.pk }}" type="checkbox" {% if item in user_bookmarks %}checked{% endif %} onchange="bookmarkItem('{{ item.pk }}', this.checked)">
+                                                <label for="_heart{{ item.pk }}">
+                                                    <i id="unfill" class='bx bx-heart'></i>
+                                                    <i id="fill" class='bx bxs-heart'></i>
+                                                </label>
+                                            </span>
+                                            <a href="{{ item.webpage }}" target="_blank" class="visitSite_btn">Visit Site</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                {% if page_obj.has_next %}
+                    <a class="infinite-more-link" href="?page={{ page_obj.next_page_number }}"></a>
+                {% endif %}
+                <!-- Data list section -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal gta_subScrib_modal fade" id="staticBackdrop_2" data-bs-backdrop="static" data-bs-keyboard="false"
+        tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+
+                    <div class="gta_mdlClose">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+                    <div class="gta_contentBx">
+                        <header class="gta_ctHeader">
+                            <img src="{% static 'image/headLogo.png' %}" alt="">
+                        </header>
+
+                        <div class="mt-11">
+                            <h1 class="text-gray-1000 font-semibold title break-words">Sign up to your account</h1>
+                            <p class="text-gray-1000 text-base mt-4 mb-0 desc break-words">Sign up with</p>
+            
+                            <button type="button" class="el-button w-full h-11 mt-8 py-0 to-getLoginCode el-button--default">
+                                <a href="{% provider_login_url 'google' %}">
+                                    <span class="anvGoogl_btn">
+                                        <div class="d-flex align-items-center justify-content-center">
+                                            <img src="{% static 'image/google.svg' %}" alt="">
+                                            <span class="text-gray-1000 text-base ml-6 fWeight-regular">Continue with Google</span>
+                                        </div>
+                                    </span>
+                                </a>
+                            </button>
+            
+                            <div class="px-10">
+                                <div class="my-7 whitespace-nowrap el-divider el-divider--horizontal">
+                                    <div class="el-divider__text is-center fWeight-regular">
+                                        Or continue with
+                                    </div>
+                                </div>
+                            </div>
+            
+                            <div class="form mt-5">
+                                <form action="{% url 'register' %}" method="POST" class="el-form">
+                                    {% csrf_token %}
+                                    <div class="el-form-item is-required">
+                                        <label for="email" class="el-form-item__label">Email</label>
+                                        <div class="el-form-item__content">
+                                            <div class="el-input">
+                                                <input type="email" name="email" placeholder="Please enter your email address"
+                                                    class="el-input__inner" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                
+                                    <div class="el-form-item is-required">
+                                        <label for="password1" class="el-form-item__label">Password</label>
+                                        <div class="el-form-item__content">
+                                            <div class="el-input el-input--suffix">
+                                                <input type="password" name="password1" placeholder="Please enter your password"
+                                                    class="el-input__inner" required>
+                                                <span class="el-input__suffix">
+                                                    <span class="el-input__suffix-inner"></span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="el-form-item mt-6">
+                                        <div class="el-form-item__content">
+                                            <button type="submit" class="el-button w-full h-11 to-signIn el-button--primary">
+                                                <span>Sign Up</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Login Modal -->
+
+</section>
+
+{% block scripts %}
+
+    <script src="{% static 'base/jquery-3.7.0.min.js' %}"></script>
+    <script src="{% static 'base/jquery.waypoints.min.js' %}"></script>
+    <script src="{% static 'base/shortcuts/infinite.js' %}"></script>
+    <script>
+        
+        function selectcat() {
+            var categoryButton = document.getElementById('category-button');
+            var categorySelect = document.getElementById('category-select');
+            var selectedCategory = categoryButton.value;
+        
+            if (selectedCategory === "all") {
+                categorySelect.selectedIndex = 0;
+            } else {
+                for (var i = 0; i < categorySelect.options.length; i++) {
+                    if (categorySelect.options[i].value === selectedCategory) {
+                        categorySelect.selectedIndex = i;
+                        break;
+                    }
+                }
+            }
+        
+            categoryButton.value = categorySelect.value;
+        
+            // Update the selected category after clearing the search
+            if (selectedCategory === "all") {
+                categorySelect.selectedIndex = 0;
+                categoryButton.value = categorySelect.value;
+            }
+        }
+        
+        
+        
+        var infinite = new Waypoint.Infinite({
+            element: $('.infinite-container')[0],
+            handler: function(direction) {
+
+            },
+            offset: 'bottom-in-view',
+
+            onBeforePageLoad: function () {
+                $('.spinner-border').show();
+            },
+            onAfterPageLoad: function () {
+                $('.spinner-border').hide();
+            }
+        });
+
+        function bookmarkItem(itemID, isBookmarked) {
+            {% if not user.is_authenticated %}
+                redirectToLogin();
+            {% else %}
+                $.ajax({
+                    url: '/add-bookmark/' + itemID + '/',
+                    type: 'POST',
+                    data: {
+                        csrfmiddlewaretoken: '{{ csrf_token }}',
+                    },
+                });
+            {% endif %}
+        }
+
+        function redirectToLogin() {
+            window.location.href = "{% url 'login' %}";
+        }
+
+    </script>
+
+{% endblock scripts %}
+
+
+{% endblock content %}
+

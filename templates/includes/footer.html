@@ -1,0 +1,165 @@
+{% load static %}
+{% load socialaccount %}
+<!-- Footer -->
+<footer class="_footerAi">
+    <div class="container">
+        <div class="_innrFoot_widBx">
+            <div class="lgSocial_bx">
+                <div class="_ftLogo">
+                    <img src="{% static 'image/ftLogo.png' %}" alt="">
+                </div>
+
+                <div class="_ftSocial">
+                    <a href=""><i class='bx bxl-facebook'></i></a>
+                    <a href=""><i class='bx bxl-linkedin'></i></a>
+                    <a href=""><i class='bx bxl-twitter'></i></a>
+                    <a href=""><i class='bx bxl-youtube'></i></a>
+                </div>
+            </div>
+
+            <div class="ftLink_bx">
+                <ul>
+                    {% for category in categories %}
+                        <li>
+                            <a href="{% url 'data_list' %}?category={{ category.name }}">{{ category.name }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div class="ftLink_bx">
+                <ul>
+                    <li>
+                        <a href="">Quick Links</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'data_list' %}">Tools</a>
+                    </li>
+
+                    <li>
+                        <a href="{% url 'news' %}">News</a>
+                    </li>
+
+                    <li>
+                        <a href="{% url 'research' %}">Research</a>
+                    </li>
+
+                    <li>
+                        <a href="{% url 'submit' %}">Submit</a>
+                    </li>
+
+                    <li>
+                        <a href="{% url 'bookmark_view' %}">Favourite</a>
+                    </li>
+                    {% if not request.user.is_authenticated %}
+                        <li>
+                            <a href="{% url 'login' %}">Login</a>
+                        </li>
+
+                        <li>
+                            <a href="{% url 'register' %}">Signup</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+
+            {% if not request.user.is_authenticated %}
+                <div class="_ftNwsLetter">
+                    <h4>Newsletter</h4>
+                    <p>Get exclusive access to news and updates right to your inbox.</p>
+                    <div class="diC_subscrib_bx" data-bs-toggle="modal" data-bs-target="#staticBackdrop_2">
+                        <input type="email" placeholder="example@gmail.com">
+                        <button class="dis_subscribBtn">Subscribe</button>
+                    </div>
+                </div>
+            {% endif %}
+
+        </div>
+
+        <div class="_copyR_foot">
+            <p>Copyright <span><img src="{% static 'image/copyRight_img.png' %}" alt=""></span> 2023. All Rights Reserved.</p>
+        </div>
+    </div>
+</footer>
+
+
+<!-- Modal -->
+<div class="modal gta_subScrib_modal fade" id="staticBackdrop_2" data-bs-backdrop="static" data-bs-keyboard="false"
+    tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+
+                <div class="gta_mdlClose">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="gta_contentBx">
+                    <header class="gta_ctHeader">
+                        <img src="{% static 'image/headLogo.png' %}" alt="">
+                    </header>
+
+                    <div class="mt-11">
+                        <h1 class="text-gray-1000 font-semibold title break-words">Sign up to your account</h1>
+                        <p class="text-gray-1000 text-base mt-4 mb-0 desc break-words">Sign up with</p>
+        
+                        <button type="button" class="el-button w-full h-11 mt-8 py-0 to-getLoginCode el-button--default">
+                            <a href="{% provider_login_url 'google' %}">
+                                <span class="anvGoogl_btn">
+                                    <div class="d-flex align-items-center justify-content-center">
+                                        <img src="{% static 'image/google.svg' %}" alt="">
+                                        <span class="text-gray-1000 text-base ml-6 fWeight-regular">Continue with Google</span>
+                                    </div>
+                                </span>
+                            </a>
+                        </button>
+        
+                        <div class="px-10">
+                            <div class="my-7 whitespace-nowrap el-divider el-divider--horizontal">
+                                <div class="el-divider__text is-center fWeight-regular">
+                                    Or continue with
+                                </div>
+                            </div>
+                        </div>
+        
+                        <div class="form mt-5">
+                            <form action="{% url 'register' %}" method="POST" class="el-form">
+                                {% csrf_token %}
+                                <div class="el-form-item is-required">
+                                    <label for="email" class="el-form-item__label">Email</label>
+                                    <div class="el-form-item__content">
+                                        <div class="el-input">
+                                            <input type="email" name="email" placeholder="Please enter your email address"
+                                                class="el-input__inner" required>
+                                        </div>
+                                    </div>
+                                </div>
+            
+                                <div class="el-form-item is-required">
+                                    <label for="password1" class="el-form-item__label">Password</label>
+                                    <div class="el-form-item__content">
+                                        <div class="el-input el-input--suffix">
+                                            <input type="password" name="password1" placeholder="Please enter your password"
+                                                class="el-input__inner" required>
+                                            <span class="el-input__suffix">
+                                                <span class="el-input__suffix-inner"></span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="el-form-item mt-6">
+                                    <div class="el-form-item__content">
+                                        <button type="submit" class="el-button w-full h-11 to-signIn el-button--primary">
+                                            <span>Sign Up</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Login Modal -->

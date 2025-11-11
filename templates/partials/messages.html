@@ -1,0 +1,41 @@
+{% load static %}
+{% for message in messages %}
+<div class="alert {{ message.tags }} alert-dismissible d-none" role="alert">
+    <button type="button" class="close" data-dismiss="alert">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    {{ message|safe }}
+</div>
+{% endfor %}
+
+{% block js %}
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+<script>
+  $(document).ready(function() {
+    var alerts = $('.alert');
+    var currentIndex = 0;
+    var delay = 5000; // Delay in milliseconds between each message
+
+    function showNextAlert() {
+      if (currentIndex < alerts.length) {
+        var currentAlert = alerts.eq(currentIndex);
+        currentAlert.removeClass('d-none');
+        currentIndex++;
+        setTimeout(function() {
+          currentAlert.alert('close');
+        }, delay);
+      }
+    }
+
+    showNextAlert();
+
+    $('.close').click(function() {
+      $(this).closest('.alert').alert('close');
+      showNextAlert();
+    });
+  });
+
+</script>
+{% endblock %}

@@ -1,0 +1,98 @@
+{% extends 'auth_base.html' %}
+{% load static %}
+{% load socialaccount %}
+{% block content %}
+
+
+<div class="px-3 py-12 sm:py-16">
+    <div class="form-container">
+
+        <div class="d-flex align-items-center justify-content-center">
+            <a href="" class="go-home nuxt-link-active">
+                <span class="sr-only">Get AI</span>
+                <img src="{% static 'image/headLogo.png' %}" alt="Get AI" class="h-8 w-auto sm:h-11">
+            </a>
+        </div>
+
+        <div class="mt-11">
+            <h1 class="text-gray-1000 font-semibold title break-words">Sign in to your account</h1>
+            <p class="text-gray-1000 text-base mt-4 mb-0 desc break-words">Sign in with</p>
+
+            <button type="button" class="el-button w-full h-11 mt-8 py-0 to-getLoginCode el-button--default">
+                <a href="{% provider_login_url 'google' %}">
+                    <span class="anvGoogl_btn">
+                        <div class="d-flex align-items-center justify-content-center">
+                            <img src="{% static 'image/google.svg' %}" alt="">
+                            <span class="text-gray-1000 text-base ml-6 fWeight-regular">Continue with Google</span>
+                        </div>
+                    </span>
+                </a>
+            </button>
+
+            <div class="px-10">
+                <div class="my-7 whitespace-nowrap el-divider el-divider--horizontal">
+                    <div class="el-divider__text is-center fWeight-regular">
+                        Or continue with
+                    </div>
+                </div>
+            </div>
+
+            <div class="form">
+                <form action="{% url 'login' %}" class="el-form" method="post">
+                    {% csrf_token %}
+                    <div class="el-form-item is-required">
+                        <label for="" class="el-form-item__label">Email</label>
+                        <div class="el-form-item__content">
+                            <div class="el-input">
+                                <input type="email" name="email" placeholder="Please enter your email address" class="el-input__inner" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="el-form-item is-required">
+                        <label for="password" class="el-form-item__label">Password</label>
+                        <div class="el-form-item__content">
+                            <div class="el-input el-input--suffix">
+                                <input type="password" name="password" placeholder="Please enter your password" class="el-input__inner" required>
+                                <span class="el-input__suffix">
+                                    <span class="el-input__suffix-inner"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-between ">
+
+                        <label class="el-checkbox">
+                            <div class="fltBtn"></div>
+                        </label>
+
+                        <a href="{% url 'forgot_password' %}"
+                            class="text-purple-1300 text-base hover:text-purple-1200 go-forget-password">
+                            Forgot your password?
+                        </a>
+                    </div>
+
+                    <div class="el-form-item mt-6">
+                        <div class="el-form-item__content">
+                            <button type="submit" class="el-button w-full h-11 to-signIn el-button--primary">
+                                <span>Sign In</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="mt-7 text-center" >
+                        <span class="text-gray-1500 text-sm">Don't have an account yet?</span>
+                        <a href="{% url 'register' %}" class="text-sm font-medium text-purple-1300 hover:text-purple-1200 underline ml-2 go-register">
+                            <span>Sign Up</span>
+                        </a>
+                    </div>
+
+                </form>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

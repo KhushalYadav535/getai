@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<!-- Banner -->
+<section class="bnnerHed favouriteBnnr">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="disCover_otrBx">
+                    <h1 class="wordCarousel">
+                        <span> Favourite </span>
+                    </h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Banner -->
+
+
+<!-- Section 1 -->
+<section class="toolSec favOther_sec">
+    <div class="container">
+        <div class="flt_containerBx">
+            <div class="vrsBox_grid">
+                {% if items %}
+                    {% for item in items %}
+                        <div class="otrOpt_bx">
+                            <div class="_gradientTop">
+                                <img src="{{ item.image.url }}" alt="" >
+                            </div>
+                            <div class="_prdExp">
+                                <div class="_prdX_first">
+                                    <h1>{{ item.title }}</h1>
+                                    <p>{{ item.description }}</p>
+                                </div>
+                                <div class="_prdX_second">
+                                    <div class="_innrPrd_feat">
+                                        {% if item.is_featured %}
+                                            <span>Featured</span>
+                                        {% endif %}
+                                        <span>{{ item.category.name }}</span>
+                                    </div>
+                                    <div class="siteCt_bx">
+                                        <div class="eyeCt_bx">
+                                            <i class="fa-solid fa-eye"></i>
+                                            <span>{{ item.click_count }}</span>
+                                        </div>
+                                        <div class="visitSite_bx">
+                                            <span>
+                                                <input id="_heart{{ item.pk }}" type="checkbox" {% if item in items %}checked{% endif %} onchange="bookmarkItem('{{ item.pk }}', this.checked)">
+                                                <label for="_heart{{ item.pk }}">
+                                                    <i id="unfill" class='bx bx-heart'></i>
+                                                    <i id="fill" class='bx bxs-heart'></i>
+                                                </label>
+                                            </span>
+                                            <a href="{{ item.webpage }}" target="_blank" class="visitSite_btn" onclick="incrementClickCount('{{ item.pk }}')">Visit Site</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div style="text-align: center;">
+                        <h1>No data found</h1>
+                    </div>
+                {% endif %}
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</section>
+<!-- Section 1 -->
+
+
+{% block scripts %}
+
+<script src="{% static 'base/jquery-3.7.0.min.js' %}"></script>
+<script>
+    function bookmarkItem(itemID, isBookmarked) {
+        $.ajax({
+            url: '/add-bookmark/' + itemID + '/',
+            type: 'POST',
+            data: {
+                csrfmiddlewaretoken: '{{ csrf_token }}',
+            },
+        });
+    }
+</script>
+{% endblock scripts %}
+
+
+{% endblock %}
+

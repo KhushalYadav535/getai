@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<section class="upPer_submitSec">
+    <div class="submitSec">
+    <div class="container">
+        <div class="flt_containerBx">
+            <div class="subFlex_hd">
+                <div class="submitTxt">
+
+                    <ul class="subUl_bx">
+                        <li class="fst_subLi">
+                            <h1>Submit A Tool</h1>
+                            <p>It is a long established fact that a reader will be distracted by the readable
+                                content of a page when looking at its layout.</p>
+                        </li>
+
+                        <li class="scd_subLi">
+                            <h1>Follow Us</h1>
+                            <p>Follow us or check out our blog.</p>
+
+                            <div class="social_subBx">
+                                <span><a href=""><i class='bx bxl-facebook'></i></a></span>
+                                <span><a href=""><i class='bx bxl-linkedin'></i></a></span>
+                                <span><a href=""><i class='bx bxl-twitter'></i></a></span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="submitForm">
+                    <div class="subInr_frm">
+                        <h1>Submit A Tool</h1>
+                        <form action="{% url 'submit' %}" method="POST">
+                            {% csrf_token %}
+                            <div class="subInput_flx">
+                                <div class="subInput_inrFx">
+                                    <img src="{% static 'image/userName_Icon.png' %}" alt="">
+                                    <input type="text" placeholder="Your Name" name="full_name" required>
+                                </div>
+                                <div class="subInput_inrFx">
+                                    <img src="{% static 'image/toolName_icon.png' %}" alt="">
+                                    <input type="text" placeholder="Tool Name" name="tool_name" required>
+                                </div>
+                                <div class="subInput_inrFx">
+                                    <img src="{% static 'image/email_icon.png' %}" alt="">
+                                    <input type="email" placeholder="Email Address" name="email" required>
+                                </div>
+                                <div class="subInput_inrFx">
+                                    <img src="{% static 'image/website_icon.png' %}" alt="">
+                                    <input type="text" placeholder="Website URL" name="website" required>
+                                </div>
+                                <div class="subInput_inrFx">
+                                    <img src="{% static 'image/categSelct_icon.png' %}" alt="">
+                                    <select name="category">
+                                        <option selected disabled>Select a category</option>
+                                        {% for category in categories %}
+                                        <option value="{{ category.id }}">{{ category.name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="subInput_inrFx">
+                                    <img src="{% static 'image/describIcon.png' %}" alt="">
+                                    <textarea name="description" rows="4" placeholder="Describe the tool you are submitting."  required></textarea>
+                                </div>
+                                <div class="subInput_inrFx">
+                                    <p>Are you interested in advertising opportunities?</p>
+                                    <div class="confirmRadio_bx">
+                                        <input type="radio" name="interested" id="option-1" checked>
+                                        <input type="radio" name="interested" id="option-2">
+                                        <label for="option-1" class="option option-1">
+                                            <div class="dot"></div>
+                                            <span>Yes</span>
+                                        </label>
+                                        <label for="option-2" class="option option-2">
+                                            <div class="dot"></div>
+                                            <span>No</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="subInput_inrFx">
+                                    <button type="submit" class="subfrm_subBtn">Submit A Tool</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+
+{% endblock content %}

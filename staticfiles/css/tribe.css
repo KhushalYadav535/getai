@@ -1,0 +1,201 @@
+section.bnnerHed.tribeBnnr {
+    background-image: url(../image/tribe-bgImg.webp);
+    min-height: 181px;
+    height: 100%;
+    background-size: cover;
+}
+
+section.bnnerHed.tribeBnnr h1.wordCarousel {
+    font-size: 42px;
+}
+
+.tribOrt-bx {
+    padding: 30px 0 4em;
+}
+
+.tribOrt-bx {
+    padding: 30px 0 4em;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 21px;
+}
+
+.tribInr-col {
+    flex: 0 0 calc(25% - 15.75px);
+    border-radius: 4.471px;
+    background: linear-gradient(139deg, rgba(203, 214, 254, 0.72) 0%, rgba(251, 238, 253, 0.71) 100%);
+    padding-bottom: 25px;
+}
+
+.iconOrd {
+    width: 87.92px;
+    height: 87.92px;
+    margin: 24px auto 0;
+    border: 2px solid #fff;
+    border-radius: 50%; 
+    overflow: hidden;
+}
+
+.iconOrd img {
+    width: 100%;
+}
+
+.trbContent {
+    text-align: center;
+    max-width: 190px;
+    margin: 0 auto;
+    padding-top: 1em;
+}
+
+.trbChats_bx {
+    border-radius: 6.706px;
+    background: linear-gradient(180deg, #8765CD 0%, #603CAB 100%);
+    width: 81%;
+    margin: 0 auto;
+    padding: 11px 12px 15px;
+}
+
+.trbContent h4 {
+    color: #313131;
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 5px;
+    font-family: Helvetica;
+}
+
+.trbContent p {
+    color: #515151;
+    text-align: center;
+    font-family: Helvetica;
+    font-size: 12px;
+}
+
+.trbChats_bx p {
+    color: #FFF;
+    font-family: Helvetica;
+    font-size: 12px;
+    margin-bottom: 8px;
+}
+
+.trb-chtBtn {
+    color: #262626;
+    font-family: 'Roboto', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 2px;
+    background-color: #fff;
+    height: 31px;
+    gap: 2px;
+}
+
+h1.headText {
+    color: #242B4D;
+    font-size: 24px;
+    font-weight: 700;
+    
+}
+
+.tribs header.gta_ctHeader {
+    margin-bottom: 10px;
+}
+
+.gta_subScrib_modal.tribs  .el-form-item__content {
+    font-size: 14px;
+    line-height: 42px;
+    position: relative;
+}
+
+.gta_subScrib_modal.tribs .form .el-form-item {
+    margin-bottom: 20px;
+}
+
+.gta_subScrib_modal.tribs .el-input {
+    display: inline-block;
+    font-size: 14px;
+    position: relative;
+    width: 100%;
+}
+
+.gta_subScrib_modal.tribs .el-button--primary:disabled {
+    background: #EBEBEB;
+    color: #AFAFAF;
+    cursor: not-allowed;
+}
+
+.gta_subScrib_modal.tribs .el-input__inner {
+    -webkit-appearance: none;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #d5d5d5;
+    border-radius: 4px;
+    box-sizing: border-box;
+    color: #2f3032;
+    display: inline-block;
+    font-size: inherit;
+    height: 40px;
+    line-height: 40px;
+    outline: none;
+    padding: 0 15px;
+    transition: border-color .2s cubic-bezier(.645,.045,.355,1);
+    width: 100%;
+}
+
+.gta_subScrib_modal.tribs .el-button--primary {
+    background-color: #7150e6;
+    border-color: #7150e6;
+    color: #fff;
+    width: 100%;
+    border: 0;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.gta_subScrib_modal.tribs .form {
+    margin-top: 3em;
+}
+
+input[type="number"]::-webkit-outer-spin-button, 
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+
+
+
+
+@media (max-width: 479px) {
+    .tribInr-col {
+        flex: 0 0 calc(100% - 0px);
+        max-width: 360px;
+        margin: 0 auto;
+    }
+    section.bnnerHed.tribeBnnr h1.wordCarousel {
+        font-size: 32px;
+    }
+}
+
+@media (min-width: 480px) and (max-width: 767px) {
+    .tribInr-col {
+        flex: 0 0 calc(50% - 10.5px);
+    }
+    section.bnnerHed.tribeBnnr h1.wordCarousel {
+        font-size: 32px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    .tribInr-col {
+        flex: 0 0 calc(33.33% - 14px);
+    }
+    .tribOrt-bx {
+        justify-content: center;
+    }
+}

@@ -1,0 +1,346 @@
+/* Login Page */
+@media (min-width: 640px) {
+    .sm\:py-16 {
+        padding-bottom: 4rem !important;
+        padding-top: 4rem !important;
+    }
+
+    .sm\:py-32 {
+        padding-bottom: 8rem!important;
+        padding-top: 8rem!important;
+    }
+}
+
+.mt-11 {
+    margin-top: 2.75rem !important;
+}
+
+.px-3.py-12.sm\:py-16 {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+}
+
+.form-container {
+    margin: 0 auto;
+    max-width: 435px;
+    width: 100%;
+}
+
+.text-gray-1000 {
+    color: rgba(25, 25, 25);
+}
+
+.form-container .title {
+    font-size: 28px;
+}
+
+.font-semibold {
+    font-weight: 600 !important;
+}
+
+.text-base {
+    font-size: 1rem !important;
+    line-height: 1.5rem !important;
+}
+
+.break-words {
+    word-wrap: break-word !important;
+}
+
+.el-button {
+    -webkit-appearance: none;
+    background: #fff;
+    border: 1px solid #d5d5d5;
+    border-radius: 4px;
+    box-sizing: border-box;
+    color: #2f3032;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1;
+    margin: 0;
+    outline: none;
+    padding: 12px 20px;
+    text-align: center;
+    transition: .1s;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    white-space: nowrap;
+}
+
+.w-full {
+    width: 100% !important;
+}
+
+.h-11 {
+    height: 2.75rem !important;
+}
+
+.mt-8 {
+    margin-top: 2rem !important;
+}
+
+span.anvGoogl_btn img {
+    width: 26px;
+}
+
+.ml-6 {
+    margin-left: 1.3rem !important;
+}
+
+.px-10 {
+    padding-left: 2.5rem!important;
+    padding-right: 2.5rem!important;
+}
+
+.my-7 {
+    margin-bottom: 1.75rem!important;
+    margin-top: 1.75rem!important;
+}
+
+.truncate, .whitespace-nowrap {
+    white-space: nowrap!important;
+}
+
+.el-divider {
+    background-color: #d5d5d5;
+    position: relative;
+}
+
+.el-divider--horizontal {
+    display: block;
+    height: 1px;
+    margin: 24px 0;
+    width: 100%;
+}
+
+.form-container .el-divider--horizontal .el-divider__text {
+    color: #666;
+}
+
+.el-divider__text.is-center {
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+}
+
+.el-divider__text {
+    background-color: #fff;
+    color: #313131;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 0 20px;
+    position: absolute;
+}
+
+.fWeight-regular {
+    font-weight: 400;
+}
+
+.form-container .form .el-form-item {
+    margin-bottom: 20px;
+}
+
+.el-form-item:after, .el-form-item:before {
+    content: "";
+    display: table;
+}
+
+.form-container .form .el-form-item__label {
+    font-weight: 600;
+    line-height: 16px;
+    margin-bottom: 12px;
+}
+.el-form-item__label {
+    box-sizing: border-box;
+    color: #2f3032;
+    float: left;
+    font-size: 14px;
+    line-height: 40px;
+    padding: 0 12px 0 0;
+    text-align: right;
+    vertical-align: middle;
+}
+
+.el-form-item__content {
+    font-size: 14px;
+    line-height: 40px;
+    position: relative;
+}
+
+.el-input {
+    display: inline-block;
+    font-size: 14px;
+    position: relative;
+    width: 100%;
+}
+
+.el-input__inner {
+    -webkit-appearance: none;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #d5d5d5;
+    border-radius: 4px;
+    box-sizing: border-box;
+    color: #2f3032;
+    display: inline-block;
+    font-size: inherit;
+    height: 40px;
+    line-height: 40px;
+    outline: none;
+    padding: 0 15px;
+    transition: border-color .2s cubic-bezier(.645,.045,.355,1);
+    width: 100%;
+}
+
+.el-form-item.is-required:not(.is-no-asterisk) .el-form-item__label-wrap>.el-form-item__label:before, .el-form-item.is-required:not(.is-no-asterisk)>.el-form-item__label:before {
+    color: #f56c6c;
+    content: "*";
+    margin-right: 4px;
+}
+
+.el-checkbox:last-of-type {
+    margin-right: 0;
+}
+
+.el-checkbox__input {
+    cursor: pointer;
+    display: inline-block;
+    line-height: 1;
+    outline: none;
+    position: relative;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+.form-container .form .el-checkbox__label {
+    color: #666;
+    font-size: 14px;
+}
+
+.form-container .form .el-checkbox__inner {
+    height: 18px;
+    width: 18px;
+}
+.el-checkbox__inner {
+    background-color: #fff;
+    border: 1px solid #d5d5d5;
+    border-radius: 2px;
+    box-sizing: border-box;
+    display: inline-block;
+    height: 14px;
+    position: relative;
+    transition: border-color .25s cubic-bezier(.71,-.46,.29,1.46),background-color .25s cubic-bezier(.71,-.46,.29,1.46);
+    width: 14px;
+    z-index: 1;
+}
+
+.fltBtn {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+label.el-checkbox {
+    position: relative;
+}
+
+.el-checkbox__input.is-checked .el-checkbox__inner {
+    background-color: #7150e6;
+    border-color: #7150e6;
+}
+
+.form-container .form .el-checkbox__inner:after {
+    height: 9px;
+    left: 5px;
+    width: 4px;
+}
+.el-checkbox__input.is-checked .el-checkbox__inner:after {
+    transform: rotate(45deg) scaleY(1);
+}
+
+.el-checkbox__inner:after {
+    border: 1px solid #fff;
+    border-left: 0;
+    border-top: 0;
+    box-sizing: content-box;
+    content: "";
+    height: 7px;
+    left: 4px;
+    position: absolute;
+    top: 1px;
+    transform: rotate(45deg) scaleY(0);
+    transform-origin: center;
+    transition: transform .15s ease-in .05s;
+    width: 3px;
+}
+
+.el-checkbox__original {
+    height: 0;
+    margin: 0;
+    opacity: 0;
+    outline: none;
+    position: absolute;
+    width: 0;
+    z-index: -1;
+}
+
+.form-container .form .el-checkbox__input.is-checked+.el-checkbox__label {
+    color: #7150e6;
+}
+
+.el-checkbox__label {
+    display: inline-block;
+    font-size: 14px;
+    line-height: 19px;
+    padding-left: 5px;
+}
+
+.text-purple-1300 {
+    color: #7150e6!important;
+}
+
+.hover\:text-purple-1200:hover {
+    color: #8948bc!important;
+}
+
+a {
+    text-decoration: none;
+}
+
+.mt-6 {
+    margin-top: 1.5rem!important;
+}
+
+.el-button--primary {
+    background-color: #7150e6;
+    border-color: #7150e6;
+    color: #fff;
+}
+
+.el-button--primary:hover {
+    background: #6243d1;
+    border-color: #6243d1;
+    color: #fff;
+}
+
+.mt-7 {
+    margin-top: 1.75rem!important;
+}
+
+.text-sm {
+    font-size: .875rem!important;
+    line-height: 1.25rem!important;
+}
+
+.text-gray-1500 {
+    color: #666!important;
+}
+
+form.el-form {
+    width: 100%;
+}
+/* Login Page */

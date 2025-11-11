@@ -1,0 +1,123 @@
+{% load static %}
+
+
+<!-- Header -->
+<header>
+    
+    <nav class="navbar navbar-expand-lg sysNav" style="padding: 0;min-height: 63px;">
+        <div class="container" style="min-height: 63px;">
+
+            <div class="nwContainer_wid" style="min-height: 63px; align-items: center;">
+                <a class="navbar-brand" href="{% url 'data_list' %}">
+                    <img src="{% static 'image/headLogo.png' %}" alt="">
+                </a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
+                    aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation"></button>
+
+                    <div class="collapse navbar-collapse" id="navbarText" style="min-height: 63px;">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="height: 63px; align-items: center;">
+                            <li class="nav-item {% url 'data_list' as data_list_url %}{% if request.path == data_list_url %}current{% endif %}">
+                                <a class="nav-link " href="{% url 'data_list' %}">Tools</a>
+                            </li>
+                            <li class="nav-item {% url 'news' as news_url %}{% if request.path == news_url %}current{% endif %}">
+                                <a class="nav-link" href="{% url 'news' %}">News</a>
+                            </li>
+                            <li class="nav-item {% if request.path == '#' %}current{% endif %}">
+                                <a class="nav-link" href="{% url 'research' %}">Research</a>
+                            </li>
+                            <li class="nav-item {% url 'submit' as submit_url %}{% if request.path == submit_url %}current{% endif %}">
+                                <a class="nav-link" href="{% url 'submit' %}">Submit</a>
+                            </li>
+                            <li class="nav-item {% url 'bookmark_view' as bookmark_view_url %}{% if request.path == bookmark_view_url %}current{% endif %}">
+                                <a class="nav-link" href="{% url 'bookmark_view' %}">Favourite</a>
+                            </li>
+                            <li class="nav-item {% url 'tribe' as tribe_url %}{% if request.path == tribe_url %}current{% endif %}">
+                                <a class="nav-link" href="{% url 'tribe' %}">Tribe</a>
+                            </li>
+                            <div id="marker"></div>
+                        </ul>
+                        {% if request.user.is_authenticated %}
+                            <div class="sidLogin_sec">
+                                <a class="sid_logIn" href="{% url 'logout' %}"><span class="lspan"><span><i class='bx bx-log-out-circle' ></i></span> Log Out </span></a>
+                            </div>
+                        {% else %}
+                    <!-- User is not logged in -->
+                    <div class="sidLogin_sec">
+                        <a class="sid_logIn" href="{% url 'login' %}"><span class="lspan"><span><i class='bx bx-log-in-circle' ></i></span> Log In </span></a>
+                        <a class="sid_signUp" href="{% url 'register' %}"><span class="lspan"><span><i class='bx bx-user-circle' ></i></span> Sign up </span></a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <nav role="navigation" class="mobNav">
+        <div class="mobNavigate">
+            <a href="{% url 'data_list' %}" class="navbar-brand">
+                <img class="stnd_logo" src="{% static 'image/headLogo.png' %}" alt="">
+            </a>
+        </div>
+
+        <aside id="sidebar">
+            <div class="sidebar_content sidebar_head">
+                <div>
+                    <a href="index.html" class="navbar-brand">
+                        <img src="{% static 'image/ftLogo.png' %}" alt="">
+                    </a>
+                </div>
+
+            </div>
+
+            <div class="sidebar_content sidebar_body">
+                <nav class="side_navlinks">
+                    <ul>
+                        {% comment %} <li>
+                            <a class="sdAnchor" href="{% url 'data_list' %}">Tools</a>
+                        </li> {% endcomment %}
+                        <li>
+                            <a class="sdAnchor" href="{% url 'data_list' %}">Tools</a>
+                        </li>
+                        <li>
+                            <a class="sdAnchor" href="{% url 'news' %}">News</a>
+                        </li>
+
+                        <li>
+                            <a class="sdAnchor" href="{% url 'research' %}">Research</a>
+                        </li>
+
+                        <li>
+                            <a class="sdAnchor" href="{% url 'submit' %}">Submit</a>
+                        </li>
+                        <li>
+                            <a class="sdAnchor" href="{% url 'bookmark_view' %}">Favourite</a>
+                        </li>
+                        <li>
+                            {% if request.user.is_authenticated %}
+                            <div class="sidLogin_sec">
+                                <a class="sid_logIn" href="{% url 'logout' %}"><span class="lspan"><span><i class='bx bx-log-out-circle' ></i></span> Log Out </span></a>
+                            </div>
+                            {% else %}
+                            <!-- User is not logged in -->
+                            <div class="sidLogin_sec">
+                                <a class="sid_logIn" href="{% url 'login' %}"><span class="lspan"><span><i class='bx bx-log-in-circle' ></i></span> Log In </span></a>
+                                <a class="sid_signUp" href="{% url 'register' %}"><span class="lspan"><span><i class='bx bx-user-circle' ></i></span> Sign up </span></a>
+                            </div>
+                            {% endif %}
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+
+        </aside>
+
+        <!--== Sidebar-Toggler ==-->
+        <div class="sidebar_toggler">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+</header>
+<!-- Header -->

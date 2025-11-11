@@ -1,0 +1,242 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+
+    <div class="storyApp">
+        <div class="container-fluid  chattop">
+            <div class="_in-storyTop">
+                <div class="_in-storyTop-left">
+                    <a href="{% url 'tribe' %}"><button class="backBtn"><i
+                                class="fa-solid fa-chevron-left"></i></button></a>
+                    <div class="_insTop_cont">
+                        <button id="stmak" class="stmak-contref">Healthcare
+                            <!--                            <span><i class="fa-regular fa-comments"></i>3.2 m </span>-->
+                        </button>
+                        <!--                        <div class="hlfPara-fst">They are able to write any story they can</div>-->
+                        <div class="hlfPara">created by <span>GetAiLife</span></div>
+                    </div>
+                </div>
+
+                <div class="_in-storyTop-right">
+                    <button class="shareBtn"><i class='bx bxs-share'></i></button>
+                </div>
+            </div>
+        </div>
+        <div class="chatcenter">
+            <ul class="chatterBox" id="chatterBoxId" >
+            </ul>
+        </div>
+
+        <div id="loader" style="display: none;">
+            <div class="spinner-border" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </div>
+        <div class="container-fluid chatbottom">
+            <div class="chatfooterbg-normal">
+                <div class="chtComs">
+                    <input type="hidden" name="user_chat_cache_key" id="user_chat_cache_key">
+                    <textarea id="messageInput" placeholder="Type your message..."></textarea>
+                    <button id="sendMessageBtn">Send</button>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <div class="modal" id="userInfoModal" tabindex="-1" role="dialog" aria-labelledby="userInfoModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false" >
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="userInfoModalLabel">Please help me know you better</h5>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="form-group">
+                  <label for="name">Name</label>
+                  <input type="text" class="form-control" id="name" placeholder="Enter name">
+                </div>
+                <div class="form-group">
+                  <label for="age">Age</label>
+                  <input type="number" class="form-control" id="age" placeholder="Enter age (Years)">
+                </div>
+                <div class="form-group">
+                  <label for="location">Location</label>
+                  <input type="text" class="form-control" id="location" placeholder="Enter location">
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="saveChangesBtn">Save changes</button>
+              </div>
+          </div>
+        </div>
+{% endblock content %}
+{% block scripts %}
+<script>
+    const regex = /\\n|\\r\\n|\\n\\r|\\r/g;
+    $(document).ready(function () {
+        const userInfoModal = document.getElementById('userInfoModal');
+
+        userInfoModal.addEventListener('click', function(event) {
+            if (event.target === userInfoModal) {
+              event.preventDefault();
+            }
+          });
+
+
+        function showLoader() {
+            $('#loader').show();
+        }
+
+        function hideLoader() {
+            $('#loader').hide();
+        }
+
+        setTimeout(function () {
+            $('#userInfoModal').modal({
+                backdrop: 'static',
+                keyboard: false,
+              })
+            $('#userInfoModal').modal('show');
+        }, 500);
+
+        $("#stmak").click(function () {
+            $(".hlfPara-fst").toggleClass("hide-Unhide");
+        });
+
+
+        $('#saveChangesBtn').click(function () {
+
+            showLoader();
+            disableModalBtn();
+
+            var name = $('#name').val();
+            var age = $('#age').val();
+            var location = $('#location').val();
+
+            let _data = {
+                name: name,
+                age: age,
+                location: location,
+                "chat_bot_type": "Healthcare",
+            }
+
+            fetch('/api/v1/llm/start-chat/', {
+                    method: "POST",
+                    body: JSON.stringify(_data),
+                    headers: {
+                        "Content-type": "application/json; charset=UTF-8"
+                    }
+                }).then(response => response.json())
+                .then(data => {
+                    $('#user_chat_cache_key').val(data.user_chat_cache_key);
+                    $('#userInfoModal').modal('hide');
+                    appendMessage('H', 'Healthcare', data.ai_message_content);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                }).finally(() => {
+                    hideLoader();
+                    enableModalBtn();
+                });
+        });
+
+        $('#sendMessageBtn').click(function () {
+            sendMessage()
+        });
+
+        function sendMessage() {
+            disableInput();
+
+            showLoader();
+            const messageInput = document.getElementById('messageInput');
+            const message = messageInput.value.trim();
+            if (message) {
+                appendMessage('U', $('#name').val(), message);
+                const apiUrl = '/api/v1/llm/text-generation/';
+                const data = {
+                    human_message: message,
+                    user_chat_cache_key: $('#user_chat_cache_key').val(),
+                };
+
+                const requestOptions = {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                };
+
+                fetch(apiUrl, requestOptions)
+                    .then(response => response.json())
+                    .then(data => {
+                        appendMessage('H', 'Healthcare', data.ai_message_content);
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    }).finally(() => {
+                        hideLoader();
+                        enableInput();
+
+                    });
+
+                // Clear the message input after sending the message
+                messageInput.value = '';
+            }
+        }
+
+        function disableInput() {
+            const sendMessageBtn = document.getElementById('sendMessageBtn');
+            const messageInput = document.getElementById('messageInput');
+            messageInput.disabled = true;
+            sendMessageBtn.disabled = true;
+        }
+
+        function enableInput() {
+            const sendMessageBtn = document.getElementById('sendMessageBtn');
+            const messageInput = document.getElementById('messageInput');
+            messageInput.disabled = false;
+            sendMessageBtn.disabled = false;
+        }
+
+        function disableModalBtn() {
+            const saveChangesBtn = document.getElementById('saveChangesBtn');
+            saveChangesBtn.disabled = true;
+        }
+
+        function enableModalBtn() {
+            const saveChangesBtn = document.getElementById('saveChangesBtn');
+            saveChangesBtn.disabled = false;
+        }
+
+        function covertToURL(string) {
+            const urls = string.match(/((((ftp|https|http?):\/\/)|(w{3}\.))[\-\w@:%_\+.~#?,&\/\/=]+)/g);
+            if (urls) {
+                urls.forEach(function (url) {
+                    string = string.replace(url, '<a target="_blank" href="' + url + '">' + url + "</a>");
+                });
+            }
+            return string.replace("(", "<br/>(");
+        }
+
+        function appendMessage(senderPrefix, userName, message) {
+            message = message.replace(regex, '<br>');
+            const chatterBoxElement = document.getElementById('chatterBoxId');
+            let chatMessageHtml = `                
+        <li class="chtList">
+            <div class="avatar"><span>${senderPrefix}</span></div>
+            <div>
+                <div class="userName">${userName}</div>
+                <p class="chatCont" style="white-space: pre-wrap;">${message}</p>
+            </div>
+        </li>
+        `
+            chatterBoxElement.innerHTML += chatMessageHtml;
+        }
+    });
+
+</script>
+{% endblock scripts %}
