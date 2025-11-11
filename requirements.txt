@@ -10,8 +10,9 @@ psycopg2-binary==2.9.6
 PyJWT==2.7.0
 requests==2.31.0
 selenium==4.10.0
-langchain
-openai
+# Pin to pre-1.0 API compatible with existing imports
+langchain==0.0.352
+openai==0.28.1
 streamlit
 django-extensions==3.2.3
 django-redis==5.3.0
