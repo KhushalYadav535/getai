@@ -5,6 +5,7 @@ services:
     region: frankfurt
     plan: free
     buildCommand: |
+      pip install --upgrade pip setuptools wheel
       pip install -r requirements.txt
       python manage.py collectstatic --noinput
       python manage.py migrate --noinput
@@ -19,11 +20,11 @@ services:
         value: "*"
       - key: CSRF_TRUSTED_ORIGINS_EXTRA
         value: "https://getai-uly5.onrender.com"
+      - key: PYTHON_VERSION
+        value: "3.11.9"
       # Uncomment and set if you provision Redis on Render
       # - key: REDIS_URL
       #   fromService:
       #     type: redis
       #     name: your-redis-name
       #     property: connectionString
-*** End Patch```}() !!}
-
