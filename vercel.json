@@ -1,11 +1,13 @@
 ﻿{
-  "builds": [
-    { "src": "api/index.py", "use": "@vercel/python" },
-    { "src": "static/**/*", "use": "@vercel/static" }
-  ],
+  "version": 2,
+  "functions": {
+    "api/index.py": {
+      "runtime": "python3.11"
+    }
+  },
+  "buildCommand": "pip install -r requirements.txt && python manage.py collectstatic --noinput",
   "routes": [
     { "src": "/static/(.*)", "dest": "/static/$1" },
-    { "src": "/(.*)", "dest": "api/index.py" }
-  ],
-  "buildCommand": "pip install -r requirements.txt && python manage.py collectstatic --noinput"
+    { "src": "/(.*)", "dest": "/api/index.py" }
+  ]
 }
