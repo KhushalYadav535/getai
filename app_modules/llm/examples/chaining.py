@@ -5,8 +5,7 @@ from langchain.chains import LLMChain, SequentialChain
 from langchain.chat_models import ChatOpenAI
 from langchain.memory import ConversationBufferMemory
 from langchain.prompts import PromptTemplate
-
-os.environ['OPENAI_API_KEY'] = "***REMOVED***"
+ 
 
 # App framework
 st.title('Your personal doctor')
