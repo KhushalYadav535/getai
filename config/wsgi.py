@@ -20,4 +20,7 @@ application = get_wsgi_application()
 
 # Serve static files via WhiteNoise
 application = WhiteNoise(application, root=settings.STATIC_ROOT)
-application.add_files(settings.MEDIA_ROOT, prefix=settings.MEDIA_URL)
+
+media_prefix = (getattr(settings, "MEDIA_URL", "/media/") or "/media/").lstrip("/")
+if settings.MEDIA_ROOT:
+    application.add_files(settings.MEDIA_ROOT, prefix=media_prefix)
