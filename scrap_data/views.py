@@ -151,7 +151,7 @@ class DataListView(ListView):
     paginate_by = 40
 
     def get_queryset(self):
-        queryset = super().get_queryset().order_by('id')
+        queryset = super().get_queryset().order_by('-id')
         category_filter = self.request.GET.get('category')
         search_query = self.request.GET.get('search')
         tag_filter = self.request.GET.get('tag')
@@ -209,7 +209,7 @@ class NewsListView(ListView):
     paginate_by = 40
 
     def get_queryset(self):
-        queryset = super().get_queryset().order_by('id')
+        queryset = super().get_queryset().order_by('-id')
 
         # Retrieve the search query from the GET parameters
         search_query = self.request.GET.get('search')
@@ -238,7 +238,7 @@ class ResearchListView(ListView):
     paginate_by = 40
 
     def get_queryset(self):
-        queryset = super().get_queryset().order_by('id')
+        queryset = super().get_queryset().order_by('-id')
 
         # Retrieve the search query from the GET parameters
         search_query = self.request.GET.get('search')
