@@ -40,12 +40,6 @@
                         <div class="otrOpt_bx infinite-item" style="background: linear-gradient(107.49deg, rgba(203, 214, 254, 0.72) 4.71%, rgba(251, 238, 253, 0.71) 99.54%);">
                             <div class="_prdExp">
                                 <div class="_prdX_first">
-                                    <div class="meta-inline">
-                                        {% if item.is_new %}
-                                            <span class="badge-new">New</span>
-                                        {% endif %}
-                                        <span class="added-date">Published {{ item.created_at|date:"d M Y" }}</span>
-                                    </div>
                                     <h1>{{ item.title }}</h1>
                                     <p>{{ item.subject }}</p>
                                 </div>
