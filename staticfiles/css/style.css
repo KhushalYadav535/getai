@@ -385,6 +385,7 @@ input:focus-visible {
     align-items: flex-end;
     justify-content: center;
     overflow: hidden;
+    position: relative;
 }
 
 ._gradientTop img {
@@ -429,6 +430,39 @@ input:focus-visible {
 ._innrPrd_feat {
     display: flex;
     gap: 10px;
+}
+
+.badge-new {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: linear-gradient(134deg, #FF7A00 0%, #FF4D8D 100%);
+    color: #FFFFFF;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 999px;
+    letter-spacing: 0.05em;
+}
+
+.added-date {
+    display: inline-block;
+    margin-top: 8px;
+    color: #6B7280;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.meta-inline {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 6px;
+}
+
+.meta-inline .badge-new {
+    position: static;
 }
 
 ._innrPrd_feat span {

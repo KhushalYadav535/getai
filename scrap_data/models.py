@@ -1,4 +1,7 @@
+from datetime import timedelta
+
 from django.db import models
+from django.utils import timezone
 
 from users.models import User
 
@@ -45,9 +48,18 @@ class Data(models.Model):
     webpage = models.CharField(max_length=100, null=True, blank=True)
     is_featured = models.BooleanField(default=False)
     click_count = models.PositiveIntegerField(default=0)
+    created_at = models.DateTimeField(default=timezone.now, editable=False)
 
     def __str__(self) -> str:
         return self.title
+
+    @property
+    def is_new(self) -> bool:
+        return self.created_at and self.created_at >= timezone.now() - timedelta(days=7)
+
+    @property
+    def tags(self):
+        return self.tag
 
     class Meta:
         verbose_name = verbose_name_plural = 'Data'
@@ -80,9 +92,14 @@ class News(models.Model):
     image = models.FileField(upload_to='news-images/', null=True, blank=True)
     webpage = models.CharField(max_length=500, null=True, blank=True)
     click_count = models.PositiveIntegerField(default=0)
+    created_at = models.DateTimeField(default=timezone.now, editable=False)
 
     def __str__(self) -> str:
         return self.title
+
+    @property
+    def is_new(self) -> bool:
+        return self.created_at and self.created_at >= timezone.now() - timedelta(days=7)
 
 
 class Research(models.Model):
@@ -90,6 +107,11 @@ class Research(models.Model):
     subject = models.TextField()
     webpage = models.CharField(max_length=500, null=True, blank=True)
     click_count = models.PositiveIntegerField(default=0)
+    created_at = models.DateTimeField(default=timezone.now, editable=False)
 
     def __str__(self) -> str:
         return self.title
+
+    @property
+    def is_new(self) -> bool:
+        return self.created_at and self.created_at >= timezone.now() - timedelta(days=7)

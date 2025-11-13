@@ -190,6 +190,9 @@ class DataListView(ListView):
         context['selected_category'] = category_filter
         context['search_query'] = search_query
         context['tags'] = tags
+        context['data_count'] = Data.objects.count()
+        context['news_count'] = News.objects.count()
+        context['research_count'] = Research.objects.count()
         context['user_bookmarks'] = user_bookmarks
 
         return context
@@ -227,6 +230,7 @@ class NewsListView(ListView):
 
         # Pass the search query back to the template
         context['search_query'] = self.request.GET.get('search')
+        context['news_count'] = News.objects.count()
 
         return context
 
@@ -256,6 +260,7 @@ class ResearchListView(ListView):
 
         # Pass the search query back to the template
         context['search_query'] = self.request.GET.get('search')
+        context['research_count'] = Research.objects.count()
 
         return context
 

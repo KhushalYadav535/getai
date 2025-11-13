@@ -115,12 +115,16 @@
                     {% for item in data %}
                         <div class="otrOpt_bx infinite-item">
                             <div class="_gradientTop">
+                                {% if item.is_new %}
+                                    <span class="badge-new">New</span>
+                                {% endif %}
                                 <img src="{{ item.image.url }}" alt="" >
                             </div>
                             <div class="_prdExp">
                                 <div class="_prdX_first">
                                     <h1>{{ item.title }}</h1>
                                     <p>{{ item.description }}</p>
+                                    <span class="added-date">Added {{ item.created_at|date:"d M Y" }}</span>
                                 </div>
                                 <div class="_prdX_second">
                                     <div class="_innrPrd_feat">

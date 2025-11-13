@@ -37,6 +37,9 @@
                 {% for item in news %}
                     <div class="otrOpt_bx">
                         <div class="_gradientTop">
+                            {% if item.is_new %}
+                                <span class="badge-new">New</span>
+                            {% endif %}
                             {% if item.image %}
                                 <img src="{{ item.image.url }}" alt="">
                             {% else %}
@@ -47,6 +50,7 @@
                             <div class="_prdX_first">
                                 <h1>{{ item.title }}</h1>
                                 <p>{{ item.description }}</p>
+                                <span class="added-date">Published {{ item.created_at|date:"d M Y" }}</span>
                             </div>
                             <div class="_prdX_second">
 
