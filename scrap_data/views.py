@@ -214,9 +214,9 @@ class NewsListView(ListView):
     paginate_by = 40
 
     def get_queryset(self):
-        # Filter out very old news (older than 12 months) to show only recent news
-        cutoff_date = timezone.now() - timedelta(days=365)
-        queryset = super().get_queryset().filter(created_at__gte=cutoff_date).order_by('-created_at', '-id')
+        # Order by created_at for latest news first
+        # Removed date filter temporarily to show all news - can be adjusted later if needed
+        queryset = super().get_queryset().order_by('-created_at', '-id')
 
         # Retrieve the search query from the GET parameters
         search_query = self.request.GET.get('search')
