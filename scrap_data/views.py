@@ -212,7 +212,7 @@ class NewsListView(ListView):
     paginate_by = 40
 
     def get_queryset(self):
-        queryset = super().get_queryset().order_by('-id')
+        queryset = super().get_queryset().order_by('-created_at', '-id')
 
         # Retrieve the search query from the GET parameters
         search_query = self.request.GET.get('search')

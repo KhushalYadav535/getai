@@ -119,30 +119,88 @@ class NewsAdmin(admin.ModelAdmin):
     def upload_csv(self, request):
         if request.method == 'POST':
             csv_file = request.FILES['csv_file']
-            data_objects = []
+            data_objects_without_image = []
+            created_count = 0
+            skipped_count = 0
 
             for chunk in pd.read_csv(csv_file, chunksize=1000):
                 for _, row in chunk.iterrows():
-                    title = row['Title']
-                    description = row['Description']
-                    link = row['Link']
+                    title = row.get('Title', '').strip()
+                    description = row.get('Description', '').strip()
+                    link = row.get('Link', '').strip()
+                    image_url = row.get('ImageURL', '').strip()  # Get image URL from CSV
                     click_count = random.randint(999, 5000)
 
-                    data = News(
-                        title=title,
-                        description=description,
-                        webpage=link,
-                        click_count=click_count
-                    )
-                    data_objects.append(data)
+                    if not title:
+                        continue
 
-            if data_objects:
+                    # Check if the record already exists in the database
+                    existing_news = News.objects.filter(title=title).first()
+                    if existing_news:
+                        skipped_count += 1
+                        continue
+
+                    # Process URL
+                    actual_url = get_actual_url(link) if link else ''
+                    cleaned_url = remove_query_params(actual_url) if actual_url else link
+
+                    try:
+                        # If image URL is provided, save individually (required for FileField)
+                        if image_url:
+                            news = News(
+                                title=title,
+                                description=description,
+                                webpage=cleaned_url,
+                                click_count=click_count
+                            )
+                            
+                            try:
+                                response = requests.get(image_url, timeout=10)
+                                response.raise_for_status()
+                                
+                                # Generate image name
+                                image_name = f"{title[:50]}.png"  # Limit filename length
+                                # Sanitize filename to remove invalid characters
+                                image_name = "".join(c for c in image_name if c.isalnum() or c in (' ', '-', '_', '.')).strip()
+                                image_content = ContentFile(response.content)
+                                news.image.save(image_name, image_content)
+                                created_count += 1
+                            except (requests.RequestException, ValueError, IOError) as e:
+                                # Save without image if download fails
+                                print(f"Failed to download image for {title}: {str(e)}")
+                                news.image = None
+                                news.save()
+                                created_count += 1
+                        else:
+                            # No image, can use bulk_create for efficiency
+                            news = News(
+                                title=title,
+                                description=description,
+                                webpage=cleaned_url,
+                                click_count=click_count
+                            )
+                            data_objects_without_image.append(news)
+                            created_count += 1
+                        
+                    except Exception as e:
+                        print(f"Error processing news item {title}: {str(e)}")
+                        continue
+
+            # Bulk create items without images
+            if data_objects_without_image:
                 try:
-                    News.objects.bulk_create(data_objects)
-                    self.message_user(request, "CSV file uploaded successfully.")
-                    return HttpResponseRedirect(reverse('admin:scrap_data_news_changelist'))
-                except ValidationError:
-                    self.message_user(request, "Error occurred while uploading the CSV file.")
+                    News.objects.bulk_create(data_objects_without_image, ignore_conflicts=True)
+                except ValidationError as e:
+                    self.message_user(request, f"Error occurred while uploading some items: {str(e)}")
+
+            if created_count > 0 or skipped_count > 0:
+                message = f"CSV file processed. {created_count} news items created."
+                if skipped_count > 0:
+                    message += f" {skipped_count} items skipped (duplicates)."
+                self.message_user(request, message)
+                return HttpResponseRedirect(reverse('admin:scrap_data_news_changelist'))
+            else:
+                self.message_user(request, "No new news items to create. All items may already exist.")
 
         form = CsvUploadForm()
         return render(request, 'admin/upload_csv.html', {'form': form})
