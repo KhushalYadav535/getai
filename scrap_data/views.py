@@ -2,6 +2,7 @@ import csv
 import os
 import time
 import uuid
+from datetime import timedelta
 
 from PIL import Image, ImageDraw, ImageFont, ImageOps
 from django.conf import settings
@@ -11,6 +12,7 @@ from django.db.models import Q
 from django.http import HttpRequest, JsonResponse
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
+from django.utils import timezone
 from django.views import View
 from django.views.generic import ListView
 from django.views.generic.base import TemplateView
@@ -212,7 +214,9 @@ class NewsListView(ListView):
     paginate_by = 40
 
     def get_queryset(self):
-        queryset = super().get_queryset().order_by('-created_at', '-id')
+        # Filter out very old news (older than 12 months) to show only recent news
+        cutoff_date = timezone.now() - timedelta(days=365)
+        queryset = super().get_queryset().filter(created_at__gte=cutoff_date).order_by('-created_at', '-id')
 
         # Retrieve the search query from the GET parameters
         search_query = self.request.GET.get('search')
