@@ -39,10 +39,16 @@
 
 
     <script src="{% static 'js/ajax.min.js' %}"></script>
-    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
     <script src="{% static 'js/jquery_3.4.1_jquery.min.js' %}"></script>
+    <script>
+        // Ensure jQuery is loaded before proceeding
+        if (typeof jQuery === 'undefined') {
+            console.error('jQuery failed to load');
+        }
+    </script>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
     <!-- jQuery Slim removed - it overwrites full jQuery and removes fadeIn/fadeOut methods -->
-    <script src="{% static 'js/custom.js' %}"></script>
+    <script src="{% static 'js/custom.js' %}" onerror="console.error('Failed to load custom.js');"></script>
     {% block scripts %}
 
     {% endblock scripts %}

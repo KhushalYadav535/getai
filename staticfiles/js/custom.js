@@ -145,24 +145,26 @@ $('#ul').mouseleave(function () {
 
 
 
-$(document).scroll(function() {
-var y = $(this).scrollTop();
-if (y > 200) {
-    // Check if fadeIn exists (jQuery Slim doesn't have it)
-    if (typeof $.fn.fadeIn === 'function') {
-        $('.scroll-top').fadeIn();
-    } else {
-        $('.scroll-top').show();
-    }
-} else {
-    // Check if fadeOut exists (jQuery Slim doesn't have it)
-    if (typeof $.fn.fadeOut === 'function') {
-        $('.scroll-top').fadeOut();
-    } else {
-        $('.scroll-top').hide();
-    }
-}
-
+// Scroll handler - ensure jQuery is loaded
+$(document).ready(function() {
+    $(document).scroll(function() {
+        var y = $(this).scrollTop();
+        if (y > 200) {
+            // Check if fadeIn exists (jQuery Slim doesn't have it)
+            if (typeof $.fn.fadeIn === 'function') {
+                $('.scroll-top').fadeIn();
+            } else {
+                $('.scroll-top').show();
+            }
+        } else {
+            // Check if fadeOut exists (jQuery Slim doesn't have it)
+            if (typeof $.fn.fadeOut === 'function') {
+                $('.scroll-top').fadeOut();
+            } else {
+                $('.scroll-top').hide();
+            }
+        }
+    });
 });
 
 
